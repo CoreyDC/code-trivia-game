@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/* Header styles for "View High Scores" anchor and timer. */
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+a {
+    color: #6100af;
+    text-decoration: none;
+    margin-left: 5%;
+}
+
+.timer {
+    margin-right: 5%;
+}
+
+/* Main content styles for header, opening paragraph, and start button */
+
+main {
+    text-align: center;
+    line-height: 1.5rem;
+}
+
+.main-p {
+    margin: 5% 15%;
+    font-size: large;
+}
+
+.start-button {
+    width: 120px;
+    height: 45px;
+    border: none;
+    border-radius: 5%;
+    background-color: #6100af;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fff;
+    box-shadow: -2px -2px 2px black;
+}
+
+.start-button:hover {
+    cursor: pointer;
+}
