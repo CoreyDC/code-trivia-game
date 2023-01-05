@@ -33,6 +33,7 @@ main {
     font-size: large;
 }
 
+button, 
 .start-button {
     width: 120px;
     height: 45px;
@@ -40,11 +41,17 @@ main {
     border-radius: 5%;
     background-color: #6100af;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: #fff;
     box-shadow: -2px -2px 2px black;
 }
 
 .start-button:hover {
     cursor: pointer;
+}
+
+/* questions section styles */
+
+.answers {
+    margin-top: 30px;
 }
