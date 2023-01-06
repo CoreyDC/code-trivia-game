@@ -46,6 +46,7 @@ button,
     box-shadow: -2px -2px 2px black;
 }
 
+button:hover,
 .start-button:hover {
     cursor: pointer;
 }
@@ -54,4 +55,9 @@ button,
 
 .answers {
     margin-top: 30px;
+}
+
+.message {
+    margin-top: 30px;
+    color: #616161;
 }
