@@ -1,17 +1,27 @@
 // GLOBAL VARIABLES 
 let score = 0;
+let finalScore;
 
 
 // TIMER VARIABLES
-let timeLeft = 60;
+let timeLeft = 5;
 let timeInterval;
 let timerEl = document.getElementById("timer");
-const startButton = document.querySelector(".start-button");
 
 
 // MAIN SCREEN VARIABLES
 let mainHeading = document.querySelector(".main-header");
 let mainParagraph = document.querySelector(".main-p");
+
+const startButton = document.querySelector(".start-button");
+
+
+// VIEW HIGH SCORE SCREEN VARIABLES
+let viewHighScores = document.getElementById("high-scores");
+let scoreUL = document.getElementById("main-score-list");
+let scoreLI;
+
+let allScores = [];
 
 
 // QUESTION SECTION VARIABLES
@@ -28,16 +38,39 @@ let btnFour;
 let msg = document.querySelector(".message");
 
 
+// ALL DONE VARIABLES
+let doneMessage = document.getElementById("all-done");
+let scoreMessage = document.getElementById("final-score");
+let initEl = document.getElementById("initials");
+let subBtn = document.querySelector(".submit-button");
+let initMsg;
+let initInput;
+let initBtn;
+
+
+// HIGH SCORE SCREEN VARIABLES
+let highscoreMessage = document.getElementById("highscore-header");
+let clear = document.getElementById("clear-btn");
+let back = document.getElementById("back-btn");
+let goBackBtn;
+let clearHsBtn;
+
+let scoreList = document.querySelector(".score-list");
+let addScore;
+
 
 // TIMER FUNCTION
 startButton.addEventListener("click", countDown);
 
 function countDown() {
     timeInterval = setInterval(function () {
-       if ( timeLeft >= 0 ) {
-        timerEl.textContent = `Time: ${timeLeft}`;
-        timeLeft--;
-       }
+        if ( timeLeft >= 0 ) {
+            timerEl.textContent = `Time: ${timeLeft}`;
+            timeLeft--;
+        if ( timeLeft === 0 ) {
+                allDoneScreen();
+            }
+        }    
     }, 1000);
 }
 
@@ -45,7 +78,7 @@ function countDown() {
 // CORRECT FUNCTION FOR IF USER PICKS CORRECT ANSWER
 function correctAnswer() {
     score += 20;
-    timeLeft += 12;
+    timeLeft += 10;
 
     msg.textContent = 'CORRECT!';
 }
@@ -53,7 +86,7 @@ function correctAnswer() {
 // WRONG FUNCTION FOR IF USER PICKS WRONG ANSWER
 function wrongAnswer() {
     score -= 20;
-    timeLeft -= 12;
+    timeLeft -= 10;
 
     msg.textContent = 'WRONG!';
 }
@@ -250,7 +283,7 @@ function questionFive() {
     answerOne.appendChild(btnOne);
     btnOne.addEventListener("click", function () { 
         wrongAnswer();
-        finished();
+        allDoneScreen();
     })
 
     btnTwo = document.createElement("BUTTON");
@@ -258,7 +291,7 @@ function questionFive() {
     answerTwo.appendChild(btnTwo);
     btnTwo.addEventListener("click", function () { 
         wrongAnswer();
-        finished();
+        allDoneScreen();
     })
 
     btnThree = document.createElement("BUTTON");
@@ -266,7 +299,7 @@ function questionFive() {
     answerThree.appendChild(btnThree);
     btnThree.addEventListener("click", function () { 
         wrongAnswer();
-        finished();
+        allDoneScreen();
     })
 
     btnFour = document.createElement("BUTTON");
@@ -274,17 +307,89 @@ function questionFive() {
     answerFour.appendChild(btnFour);
     btnFour.addEventListener("click", function () { 
         correctAnswer();
-        finished();
+        allDoneScreen();
     })
 }
 
 
-// FINISHED FUNCTION FOR AFTER THE QUIZ
-function finished() {
+// ALL DONE SCREEN FUNCTION FOR AFTER THE QUIZ
+function allDoneScreen() {
+    clearInterval (timeInterval);
+    timerEl.textContent = "";
     question.remove();
     btnOne.remove();
     btnTwo.remove();
     btnThree.remove();
     btnFour.remove();
     msg.remove();
+
+    finalScore = `${score + timeLeft}`;
+
+    doneMessage.textContent = "ALL DONE!"
+    scoreMessage.textContent = `Your final score is ${finalScore}`;
+
+    initMsg = document.createElement("h4");
+    initMsg.textContent = "Enter Initials:";
+    initEl.appendChild(initMsg);
+
+    initInput = document.createElement("input");
+    initEl.appendChild(initInput);
+
+    initBtn = document.createElement("button");
+    initBtn.textContent = "submit";
+    subBtn.appendChild(initBtn);
+    initBtn.addEventListener("click", function () {
+        localStorage.setItem("user", initInput.value);
+        localStorage.setItem("Score", finalScore);
+        highScoreScreen();
+    })
 }
+
+
+// HIGH SCORE SCREEN FUNCTION 
+function highScoreScreen() {
+    doneMessage.remove();
+    scoreMessage.remove();
+    initMsg.remove();
+    initInput.remove();
+    initBtn.remove();
+
+    highscoreMessage.textContent = "HIGHSCORES";
+
+    addScore = document.createElement("li");
+    addScore.textContent = localStorage.getItem("user") + ": " + localStorage.getItem("userScore");
+    scoreList.appendChild(addScore);
+
+    clearHsBtn = document.createElement("button");
+    clearHsBtn.textContent = "Clear Highscores";
+    clear.appendChild(clearHsBtn);
+    clearHsBtn.addEventListener("click", function () {
+        scoreList.remove();
+    });
+    
+    
+    goBackBtn = document.createElement("button");
+    goBackBtn.textContent = "Go Back";
+    back.appendChild(goBackBtn);
+    goBackBtn.addEventListener("click", function () {
+        window.location.reload();
+    })
+}
+
+
+// VIEW HIGHSCORES FUNCTION
+viewHighScores.addEventListener("click", function () {
+    mainHeading.remove();
+    mainParagraph.remove();
+    startButton.remove();
+    timerEl.remove();
+    viewHighScores.remove();
+
+   
+    scoreLI = document.createElement("li");
+
+    scoreLI.textContent = localStorage.getItem("user") + ": " + localStorage.getItem("userScore");
+
+    scoreUL.appendChild(scoreLI);
+
+})

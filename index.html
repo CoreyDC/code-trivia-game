@@ -13,7 +13,7 @@
     <body>
         <header>
             <div class="header-container">
-                <a href="#" class="high_scores">View High Scores</a>
+                <a id="high-scores">View High Scores</a>
                 <p id="timer">Time:</p>
             </div>
         </header>
@@ -24,12 +24,29 @@
             <button class="start-button">Start Quiz</button>
 
             <section>
+                <ul id="main-score-list"></ul>
+            </section>
+
+            <section class="q&a-container">
                 <h3 class="question"></h3>
                 <div class="answers" id="answer1"></div>
                 <div class="answers" id="answer2"></div>
                 <div class="answers" id="answer3"></div>
                 <div class="answers" id="answer4"></div>
                 <div class="message"></div>
+            </section>
+
+            <section class="post-quiz-container">
+                <h3 id="all-done"></h3>
+                <p id="final-score"></p>
+                <div id="initials" class="submit-button"></div>
+            </section>
+
+            <section class="highscore-container">
+                <h3 id="highscore-header"></h3>
+                <ul class="score-list"></ul>
+                <div id="clear-btn"></div>
+                <div id="back-btn"></div>
             </section>
         </main>
     

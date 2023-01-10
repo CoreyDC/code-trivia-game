@@ -11,10 +11,14 @@
     justify-content: space-between;
 }
 
-a {
+ #high-scores {
+    background-color: #fff;
     color: #6100af;
-    text-decoration: none;
     margin-left: 5%;
+}
+
+#high-scores:hover {
+    cursor: pointer;
 }
 
 #timer {
@@ -60,4 +64,28 @@ button:hover,
 .message {
     margin-top: 30px;
     color: #616161;
+}
+
+/* all done section */
+
+.submit-button button {
+    margin-left: 10px;
+    width: 75px;
+    height: 30px;
+}
+
+/* High-score container section */
+
+.highscore-container button {
+    width: 90px;
+    height: 45px;
+    margin-top: 20px;
+}
+
+.highscore-container ul {
+    padding-left: 0;
+}
+
+.highscore-container ul li {
+    list-style: none;
 }
