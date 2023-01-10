@@ -1,27 +1,24 @@
 // GLOBAL VARIABLES 
 let score = 0;
-let finalScore;
 
 
 // TIMER VARIABLES
-let timeLeft = 5;
+let timeLeft = 60;
 let timeInterval;
 let timerEl = document.getElementById("timer");
+const startButton = document.querySelector(".start-button");
 
 
 // MAIN SCREEN VARIABLES
 let mainHeading = document.querySelector(".main-header");
 let mainParagraph = document.querySelector(".main-p");
 
-const startButton = document.querySelector(".start-button");
 
 
 // VIEW HIGH SCORE SCREEN VARIABLES
 let viewHighScores = document.getElementById("high-scores");
 let scoreUL = document.getElementById("main-score-list");
 let scoreLI;
-
-let allScores = [];
 
 
 // QUESTION SECTION VARIABLES
@@ -42,10 +39,10 @@ let msg = document.querySelector(".message");
 let doneMessage = document.getElementById("all-done");
 let scoreMessage = document.getElementById("final-score");
 let initEl = document.getElementById("initials");
-let subBtn = document.querySelector(".submit-button");
+let doneBtn = document.querySelector(".submit-button");
 let initMsg;
 let initInput;
-let initBtn;
+let subBtn;
 
 
 // HIGH SCORE SCREEN VARIABLES
@@ -64,13 +61,13 @@ startButton.addEventListener("click", countDown);
 
 function countDown() {
     timeInterval = setInterval(function () {
-        if ( timeLeft >= 0 ) {
-            timerEl.textContent = `Time: ${timeLeft}`;
-            timeLeft--;
-        if ( timeLeft === 0 ) {
-                allDoneScreen();
-            }
-        }    
+       if ( timeLeft >= 0 ) {
+        timerEl.textContent = `Time: ${timeLeft}`;
+        timeLeft--;
+       }
+       if ( timeLeft === 0 ) {
+        allDoneScreen();
+       }
     }, 1000);
 }
 
@@ -78,7 +75,7 @@ function countDown() {
 // CORRECT FUNCTION FOR IF USER PICKS CORRECT ANSWER
 function correctAnswer() {
     score += 20;
-    timeLeft += 10;
+    timeLeft += 12;
 
     msg.textContent = 'CORRECT!';
 }
@@ -86,7 +83,7 @@ function correctAnswer() {
 // WRONG FUNCTION FOR IF USER PICKS WRONG ANSWER
 function wrongAnswer() {
     score -= 20;
-    timeLeft -= 10;
+    timeLeft -= 12;
 
     msg.textContent = 'WRONG!';
 }
@@ -312,21 +309,19 @@ function questionFive() {
 }
 
 
-// ALL DONE SCREEN FUNCTION FOR AFTER THE QUIZ
+// ALL DONE FUNCTION FOR AFTER THE QUIZ
 function allDoneScreen() {
-    clearInterval (timeInterval);
-    timerEl.textContent = "";
     question.remove();
     btnOne.remove();
     btnTwo.remove();
     btnThree.remove();
     btnFour.remove();
     msg.remove();
+    timerEl.remove();
 
-    finalScore = `${score + timeLeft}`;
-
+    
     doneMessage.textContent = "ALL DONE!"
-    scoreMessage.textContent = `Your final score is ${finalScore}`;
+    scoreMessage.textContent = `Your final score is ${score}`;
 
     initMsg = document.createElement("h4");
     initMsg.textContent = "Enter Initials:";
@@ -335,14 +330,14 @@ function allDoneScreen() {
     initInput = document.createElement("input");
     initEl.appendChild(initInput);
 
-    initBtn = document.createElement("button");
-    initBtn.textContent = "submit";
-    subBtn.appendChild(initBtn);
-    initBtn.addEventListener("click", function () {
-        localStorage.setItem("user", initInput.value);
-        localStorage.setItem("Score", finalScore);
+    subBtn = document.createElement("button");
+    subBtn.textContent = "submit";
+    doneBtn.appendChild(subBtn);
+    subBtn.addEventListener("click", function() {
+        localStorage.setItem("userScore", score);
+        localStorage.setItem("userInitials", initInput.value);
         highScoreScreen();
-    })
+    });
 }
 
 
@@ -352,14 +347,15 @@ function highScoreScreen() {
     scoreMessage.remove();
     initMsg.remove();
     initInput.remove();
-    initBtn.remove();
+    subBtn.remove();
 
     highscoreMessage.textContent = "HIGHSCORES";
 
     addScore = document.createElement("li");
-    addScore.textContent = localStorage.getItem("user") + ": " + localStorage.getItem("userScore");
+    addScore.textContent = localStorage.getItem("userInitials") + ": " + localStorage.getItem("userScore");
     scoreList.appendChild(addScore);
 
+    
     clearHsBtn = document.createElement("button");
     clearHsBtn.textContent = "Clear Highscores";
     clear.appendChild(clearHsBtn);
@@ -388,7 +384,7 @@ viewHighScores.addEventListener("click", function () {
    
     scoreLI = document.createElement("li");
 
-    scoreLI.textContent = localStorage.getItem("user") + ": " + localStorage.getItem("userScore");
+    scoreLI.textContent = localStorage.getItem("userInitials") + ": " + localStorage.getItem("userScore");
 
     scoreUL.appendChild(scoreLI);
 
