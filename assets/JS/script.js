@@ -17,7 +17,7 @@ let mainParagraph = document.querySelector(".main-p");
 
 // VIEW HIGH SCORE SCREEN VARIABLES
 let viewHighScores = document.getElementById("high-scores");
-let scoreUL = document.getElementById("main-score-list");
+let scoreOL = document.getElementById("main-score-list");
 let scoreLI;
 
 
@@ -373,19 +373,24 @@ function highScoreScreen() {
 }
 
 
-// VIEW HIGHSCORES FUNCTION
+// VIEW HIGHSCORES SCREEN FUNCTION
 viewHighScores.addEventListener("click", function () {
-    mainHeading.remove();
-    mainParagraph.remove();
-    startButton.remove();
+    let clearMain = document.getElementById('main-content');
+    let scoreSection = document.getElementById('view-high-scores');
+    clearMain.remove();
     timerEl.remove();
-    viewHighScores.remove();
+    viewHighScores.remove(); 
 
-   
+    let lastBtn = document.getElementById("returnBtn");
+    let returnBtn;
+    returnBtn = document.createElement("button"); 
+    returnBtn.textContent = "Return";
+    lastBtn.appendChild(returnBtn);
+    returnBtn.addEventListener("click", function() {
+        window.location.reload();
+    });
+    
     scoreLI = document.createElement("li");
-
     scoreLI.textContent = localStorage.getItem("userInitials") + ": " + localStorage.getItem("userScore");
-
-    scoreUL.appendChild(scoreLI);
-
+    scoreOL.appendChild(scoreLI);
 })

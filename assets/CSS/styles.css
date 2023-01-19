@@ -25,8 +25,8 @@
     margin-right: 5%;
 }
 
-/* Main content styles for header, opening paragraph, and start button */
 
+/* Main content styles for header, opening paragraph, and start button */
 main {
     text-align: center;
     line-height: 1.5rem;
@@ -56,7 +56,6 @@ button:hover,
 }
 
 /* questions section styles */
-
 .answers {
     margin-top: 30px;
 }
@@ -75,7 +74,6 @@ button:hover,
 }
 
 /* High-score container section */
-
 .highscore-container button {
     width: 90px;
     height: 45px;
